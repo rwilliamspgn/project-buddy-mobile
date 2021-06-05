@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:project_buddy_mobile/generated/assets.dart';
+import 'package:project_buddy_mobile/pages/auth/login.dart';
+import 'package:project_buddy_mobile/pages/auth/register.dart';
 import 'package:project_buddy_mobile/pages/landing.dart';
 
 import 'goto.dart';
@@ -26,6 +28,9 @@ class Routes {
     String name = names[1];
     print(name);
     Helper.currentRouteName = name;
+    if (names.length >= 3) {
+      Helper.routeExtension = names[2];
+    }
 
     switch (routingData.route) {
       case '/not-found':
@@ -33,13 +38,27 @@ class Routes {
       case '/':
         return _pageBuilder(LandingPage(), settings, guarded: false);
 
+      case '/login/client':
+        return _pageBuilder(LoginPage(), settings, guarded: false);
+      case '/login/contractor':
+        return _pageBuilder(LoginPage(), settings, guarded: false);
+      case '/login/buddy':
+        return _pageBuilder(LoginPage(), settings, guarded: false);
+
+      case '/register/client':
+        return _pageBuilder(RegisterPage(), settings, guarded: false);
+      case '/register/contractor':
+        return _pageBuilder(RegisterPage(), settings, guarded: false);
+      case '/register/buddy':
+        return _pageBuilder(RegisterPage(), settings, guarded: false);
+
       default:
         return _error404(settings);
     }
   }
 
-  static _pageBuilder(Widget page, RouteSettings settings, {bool guarded}) {
-    String routeName = settings.name;
+  static _pageBuilder(Widget page, RouteSettings settings, {bool? guarded}) {
+    String routeName = settings.name!;
     if (guarded != null) {
       if (guarded) {
         if (Helper.globalBox.get('token') == null) {
@@ -63,7 +82,8 @@ class Routes {
           var end = Offset.zero;
           var curve = Curves.ease;
 
-          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
           return SlideTransition(
             position: animation.drive(tween),
             child: child,
@@ -73,7 +93,8 @@ class Routes {
           var end = Offset.zero;
           var curve = Curves.ease;
 
-          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
           return SlideTransition(
             position: animation.drive(tween),
             child: child,
@@ -83,7 +104,8 @@ class Routes {
           var end = Offset.zero;
           var curve = Curves.ease;
 
-          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
           return SlideTransition(
             position: animation.drive(tween),
             child: child,
@@ -117,12 +139,13 @@ class Routes {
 }
 
 class RoutingData {
-  final String route;
-  final Map<String, String> _queryParameters;
+  final String? route;
+  final Map<String, String>? _queryParameters;
 
-  RoutingData({this.route, Map<String, String> queryParameters}) : _queryParameters = queryParameters;
+  RoutingData({this.route, required Map<String, String> queryParameters})
+      : _queryParameters = queryParameters;
 
-  operator [](String key) => _queryParameters[key];
+  operator [](String key) => _queryParameters![key];
 }
 
 extension StringExtension on String {

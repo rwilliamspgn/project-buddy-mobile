@@ -1,10 +1,11 @@
 import 'dart:convert';
 
-import 'package:achievement_view/achievement_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:project_buddy_mobile/env/config.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class Helper {
@@ -37,27 +38,36 @@ class Helper {
     return routeBox.get('current', defaultValue: '');
   }
 
-  static showSuccess(BuildContext context, {String title: 'Success!', String subTitle: 'Process went well.'}) {
-    AchievementView(
-      context,
-      title: title,
-      subTitle: subTitle,
-      color: Colors.green,
-      listener: (status) {
-        print(status);
-        //AchievementState.opening
-        //AchievementState.open
-        //AchievementState.closing
-        //AchievementState.closed
-      },
-    )..show();
+  static set routeExtension(String name) {
+    routeBox.put('extension', name);
   }
 
-  static saveForm({@required String formKey, @required Map<String, dynamic> form}) {
+  static String get routeExtension {
+    return routeBox.get('extension', defaultValue: '');
+  }
+
+  static showSuccess(BuildContext context, {String text: 'Success!'}) {
+    showToast(
+      text,
+      context: context,
+      backgroundColor: Config.primaryColor,
+      animation: StyledToastAnimation.slideFromRight,
+      reverseAnimation: StyledToastAnimation.slideToRightFade,
+      position: StyledToastPosition.top,
+      animDuration: Duration(seconds: 1),
+      duration: Duration(seconds: 4),
+      curve: Curves.elasticOut,
+      reverseCurve: Curves.linear,
+    );
+  }
+
+  static saveForm(
+      {required String formKey, required Map<String, dynamic> form}) {
     formBox.put(formKey, form);
   }
 
-  static Map<String, dynamic> fillForm({@required String formKey, @required Map fields}) {
+  static Map<String, dynamic> fillForm(
+      {required String formKey, required Map fields}) {
     Map<String, dynamic> form = {};
 
     Map formBox = Helper.formBox.get(formKey, defaultValue: {});
@@ -68,9 +78,10 @@ class Helper {
     return form;
   }
 
-  static double setWidth({@required BuildContext context, double maxWidth}) {
+  static double setWidth(
+      {required BuildContext context, double maxWidth: 480.0}) {
     Size size = MediaQuery.of(context).size;
-    double _width = maxWidth ?? size.width;
+    double _width = maxWidth;
 
     if (size.width < _width) {
       _width = size.width;
@@ -79,8 +90,11 @@ class Helper {
     return _width;
   }
 
-  static String money(double number, {String symbol: '\$', bool compact: false, int decimalDigit: 2}) {
-    var _formattedNumber = NumberFormat.compactCurrency(decimalDigits: decimalDigit, symbol: symbol).format(number);
+  static String money(double number,
+      {String symbol: '\$', bool compact: false, int decimalDigit: 2}) {
+    var _formattedNumber = NumberFormat.compactCurrency(
+            decimalDigits: decimalDigit, symbol: symbol)
+        .format(number);
     return _formattedNumber;
   }
 
@@ -102,7 +116,7 @@ class Helper {
   static bool isWatch = false;
   static bool isPhone = false;
 
-  static setSizing({@required SizingInformation sizingInformation}) {
+  static setSizing({required SizingInformation sizingInformation}) {
     isDesktop = false;
     isTablet = false;
     isWatch = false;
@@ -122,13 +136,13 @@ class Helper {
     }
   }
 
-  static Future<String> selectImage({ImageSource source}) async {
+  static Future<String> selectImage({ImageSource? source}) async {
     source = source ?? ImageSource.gallery;
 
     final picker = ImagePicker();
     final pickedFile = await picker.getImage(source: source);
 
-    var uploadedImage = await pickedFile.readAsBytes();
+    var uploadedImage = await pickedFile!.readAsBytes();
     String imageFileBase64 = base64Encode(uploadedImage);
     return imageFileBase64;
   }

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.project_buddy_mobile">
+    package="com.projectbuddy.project_buddy">
    <application
-        android:label="project_buddy_mobile"
+        android:label="project_buddy"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

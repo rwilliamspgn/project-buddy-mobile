@@ -26,9 +26,12 @@ class DioClient {
     EasyLoading.instance.indicatorColor = Config.primaryColor;
   }
 
-  Future<APIResponse> publicGet(String uri, {Map<String, dynamic> data, bool inBackground: false}) async {
+  Future<APIResponse> publicGet(String uri,
+      {Map<String, dynamic>? data, bool inBackground: false}) async {
     print(uri);
-    if (!inBackground) EasyLoading.show(status: 'Loading...', maskType: EasyLoadingMaskType.black);
+    if (!inBackground)
+      EasyLoading.show(
+          status: 'Loading...', maskType: EasyLoadingMaskType.black);
     _dio.options.headers["content-type"] = 'application/json';
 
     final response = await this._dio.get(uri, queryParameters: data);
@@ -36,12 +39,13 @@ class DioClient {
     return _process(response);
   }
 
-  Future<APIResponse> publicPost(String uri, {Map<String, dynamic> data, bool inBackground: false}) async {
+  Future<APIResponse> publicPost(String uri,
+      {Map<String, dynamic>? data, bool inBackground: false}) async {
     print(uri);
     if (!inBackground) EasyLoading.show(status: 'Loading...');
     _dio.options.headers["content-type"] = 'application/json';
 
-    FormData formData = new FormData.fromMap(data);
+    FormData formData = new FormData.fromMap(data!);
     final response = await this._dio.post(
       uri,
       data: formData,
@@ -59,18 +63,23 @@ class DioClient {
     return _process(response);
   }
 
-  Future<APIResponse> privateGet(String uri, {Map<String, dynamic> data, bool inBackground: false}) async {
+  Future<APIResponse> privateGet(String uri,
+      {Map<String, dynamic>? data, bool inBackground: false}) async {
     print(uri);
-    if (!inBackground) EasyLoading.show(status: 'Loading...', maskType: EasyLoadingMaskType.black);
+    if (!inBackground)
+      EasyLoading.show(
+          status: 'Loading...', maskType: EasyLoadingMaskType.black);
     String token = Helper.token;
     _dio.options.headers["content-type"] = 'application/json';
     _dio.options.headers["Authorization"] = 'Bearer $token';
 
-    final response = await this._dio.get(uri, queryParameters: data).catchError((onError) {
+    final response =
+        await this._dio.get(uri, queryParameters: data).catchError((onError) {
       print('Error Url: ($uri) $onError');
       if (!inBackground) EasyLoading.showToast('Something went wrong!');
       if (onError != null && onError.response != null) {
-        if (onError.response.statusCode == 401 || onError.response.statusCode == 302) {
+        if (onError.response.statusCode == 401 ||
+            onError.response.statusCode == 302) {
           _logout();
         }
       }
@@ -79,14 +88,17 @@ class DioClient {
     return _process(response);
   }
 
-  Future<APIResponse> privatePost(String uri, {Map<String, dynamic> data, bool inBackground: false}) async {
+  Future<APIResponse> privatePost(String uri,
+      {Map<String, dynamic>? data, bool inBackground: false}) async {
     print(uri);
-    if (!inBackground) EasyLoading.show(status: 'Loading...', maskType: EasyLoadingMaskType.black);
+    if (!inBackground)
+      EasyLoading.show(
+          status: 'Loading...', maskType: EasyLoadingMaskType.black);
     String token = Helper.token;
     _dio.options.headers["content-type"] = 'application/json';
     _dio.options.headers["Authorization"] = 'Bearer $token';
 
-    FormData formData = new FormData.fromMap(data);
+    FormData formData = new FormData.fromMap(data!);
     final response = await this._dio.post(
       uri,
       data: formData,
@@ -100,7 +112,8 @@ class DioClient {
       print('Error Url: ($uri) $onError');
       if (!inBackground) EasyLoading.showToast('Something went wrong!');
       if (onError != null && onError.response != null) {
-        if (onError.response.statusCode == 401 || onError.response.statusCode == 302) {
+        if (onError.response.statusCode == 401 ||
+            onError.response.statusCode == 302) {
           _logout();
         }
       }

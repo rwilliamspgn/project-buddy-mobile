@@ -10,10 +10,16 @@ class APIResponse {
   final data;
   final int code;
   final errors;
-  final List<String> errorArray;
-  final String errorMessages;
+  final List<String>? errorArray;
+  final String? errorMessages;
 
-  APIResponse({this.message: '', this.data, this.code: 200, this.errors, this.errorArray, this.errorMessages});
+  APIResponse(
+      {this.message: '',
+      this.data,
+      this.code: 200,
+      this.errors,
+      this.errorArray,
+      this.errorMessages});
 
   factory APIResponse.fromJson(Map<String, dynamic> json) {
     List<String> errorArray = [];
@@ -66,7 +72,8 @@ class APIResponse {
   static showText(String text) {
     BotToast.showText(
       text: text,
-      textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18.0),
+      textStyle: TextStyle(
+          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18.0),
       contentColor: Config.primaryColor.withOpacity(0.8),
       duration: Duration(seconds: 5),
       contentPadding: EdgeInsets.all(16.0),

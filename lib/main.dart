@@ -1,9 +1,11 @@
 import 'dart:async';
 
+// import 'package:bot_toast/bot_toast.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:project_buddy_mobile/services/routes.dart';
@@ -20,17 +22,21 @@ void main() async {
   setupLocator();
 
   await Hive.initFlutter();
-  await Hive.openBox('Global', compactionStrategy: (entries, deletedEntries) => deletedEntries > 20);
-  await Hive.openBox('Route', compactionStrategy: (entries, deletedEntries) => deletedEntries > 20);
-  await Hive.openBox('Form', compactionStrategy: (entries, deletedEntries) => deletedEntries > 10);
-  await Hive.openBox('Table', compactionStrategy: (entries, deletedEntries) => deletedEntries > 10);
+  await Hive.openBox('Global',
+      compactionStrategy: (entries, deletedEntries) => deletedEntries > 20);
+  await Hive.openBox('Route',
+      compactionStrategy: (entries, deletedEntries) => deletedEntries > 20);
+  await Hive.openBox('Form',
+      compactionStrategy: (entries, deletedEntries) => deletedEntries > 10);
+  await Hive.openBox('Table',
+      compactionStrategy: (entries, deletedEntries) => deletedEntries > 10);
 
   setPathUrlStrategy();
 
   runZonedGuarded(() {
     runApp(MyApp());
   }, (error, stack) {
-    print('Error: ' + error);
+    print('Error: ' + error.toString());
     print(stack);
   });
 }
@@ -50,8 +56,8 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.white,
         scaffoldBackgroundColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        // textTheme: GoogleFonts.sourceSansProTextTheme(Theme.of(context).textTheme),
-        fontFamily: 'Quagmire-Medium',
+        textTheme:
+            GoogleFonts.sourceSansProTextTheme(Theme.of(context).textTheme),
       ),
       builder: EasyLoading.init(builder: BotToastInit()),
       navigatorObservers: [

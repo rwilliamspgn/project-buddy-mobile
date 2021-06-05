@@ -1,7 +1,7 @@
 import 'package:project_buddy_mobile/env/config.dart';
+import 'package:project_buddy_mobile/services/helper.dart';
 import "package:universal_html/html.dart" as html;
 
-import 'helper.dart';
 import 'navigator_service.dart';
 import 'routes.dart';
 
@@ -13,10 +13,11 @@ enum WAnimation {
 }
 
 class Goto {
-  static push(String routeName, {WAnimation wAnimation: WAnimation.fade, bool noNavigate: false}) {
+  static push(String routeName,
+      {WAnimation wAnimation: WAnimation.fade, bool noNavigate: false}) {
     if (noNavigate) {
       String current = routeName.split('/')[1];
-      Helper.routeBox.put('current', current);
+      Helper.currentRouteName = current;
       if (current == 'product') {
         current += '/' + routeName.split('/')[2];
       }
@@ -27,10 +28,11 @@ class Goto {
     }
   }
 
-  static root(String routeName, {WAnimation wAnimation: WAnimation.fade, bool noNavigate: false}) {
+  static root(String routeName,
+      {WAnimation wAnimation: WAnimation.fade, bool noNavigate: false}) {
     if (noNavigate) {
       String current = routeName.split('/')[1];
-      Helper.routeBox.put('current', current);
+      Helper.currentRouteName = current;
       while (html.window.history.length > 0) {
         html.window.history.back();
       }
@@ -44,10 +46,11 @@ class Goto {
     }
   }
 
-  static transfer(String routeName, {WAnimation wAnimation: WAnimation.fade, bool noNavigate: false}) {
+  static transfer(String routeName,
+      {WAnimation wAnimation: WAnimation.fade, bool noNavigate: false}) {
     if (noNavigate) {
       String current = routeName.split('/')[1];
-      Helper.routeBox.put('current', current);
+      Helper.currentRouteName = current;
       if (current == 'product') {
         current += '/' + routeName.split('/')[2];
       }
@@ -63,7 +66,9 @@ class Goto {
     locator<NavigationService>().navigatePopUntil();
   }
 
-  static back({WAnimation wAnimation: WAnimation.fade, String defaultRoute: '/'}) async {
+  static back(
+      {WAnimation wAnimation: WAnimation.fade,
+      String defaultRoute: '/'}) async {
     Args.wAnimation = wAnimation;
     locator<NavigationService>().navigateBack(defaultRoute: defaultRoute);
   }
