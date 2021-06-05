@@ -46,6 +46,11 @@ class Helper {
     return routeBox.get('extension', defaultValue: '');
   }
 
+  static String get role {
+    Map user = globalBox.get('user', defaultValue: {'role': 'contractor'});
+    return user['role'];
+  }
+
   static showSuccess(BuildContext context, {String text: 'Success!'}) {
     showToast(
       text,

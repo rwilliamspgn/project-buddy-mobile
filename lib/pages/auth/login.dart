@@ -97,7 +97,9 @@ class _LoginPageState extends State<LoginPage> {
                             PButton(
                               label: 'Login',
                               full: true,
-                              onTap: () {},
+                              onTap: () {
+                                Goto.root('/my-schedules');
+                              },
                             ),
                             SizedBox(height: 16.0),
                             InkWell(

@@ -8,6 +8,7 @@ import 'package:project_buddy_mobile/pages/auth/new_password.dart';
 import 'package:project_buddy_mobile/pages/auth/register.dart';
 import 'package:project_buddy_mobile/pages/auth/token_input.dart';
 import 'package:project_buddy_mobile/pages/landing.dart';
+import 'package:project_buddy_mobile/pages/main/contractor/my_schedules.dart';
 
 import 'goto.dart';
 import 'helper.dart';
@@ -63,6 +64,9 @@ class Routes {
       case '/set-new-password':
         return _pageBuilder(NewPasswordPage(), settings, guarded: false);
 
+      case '/my-schedules':
+        return _pageBuilder(MySchedulesPage(), settings, guarded: true);
+
       default:
         return _error404(settings);
     }
@@ -72,15 +76,23 @@ class Routes {
     String routeName = settings.name!;
     if (guarded != null) {
       if (guarded) {
-        if (Helper.globalBox.get('token') == null) {
+        if (Helper.token == null) {
           routeName = '/';
           page = LandingPage();
         }
       } else {
-        // if (Helper.globalBox.get('token') != null) {
-        //   routeName = '/dashboard';
-        //   page = DashboardPage();
-        // }
+        if (Helper.role == 'client') {
+          // TODO: update
+          routeName = '/my-schedule';
+          page = MySchedulesPage();
+        } else if (Helper.role == 'contractor') {
+          routeName = '/my-schedule';
+          page = MySchedulesPage();
+        } else if (Helper.role == 'buddy') {
+          // TODO: update
+          routeName = '/my-schedule';
+          page = MySchedulesPage();
+        }
       }
     }
 

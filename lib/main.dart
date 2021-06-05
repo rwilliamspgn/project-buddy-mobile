@@ -54,11 +54,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Config.primaryColor,
         backgroundColor: Colors.white,
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.white12,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme:
             GoogleFonts.sourceSansProTextTheme(Theme.of(context).textTheme),
+        primaryTextTheme: TextTheme(headline6: TextStyle(color: Colors.white)),
       ),
+
       builder: EasyLoading.init(builder: BotToastInit()),
       navigatorObservers: [
         BotToastNavigatorObserver(),
