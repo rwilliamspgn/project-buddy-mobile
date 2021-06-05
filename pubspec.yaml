@@ -45,6 +45,7 @@ dependencies:
   wakelock: any
   google_fonts: any
   email_validator: any
+  pinput: any
 
 dev_dependencies:
   flutter_test:

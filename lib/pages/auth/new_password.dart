@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:project_buddy_mobile/generated/assets.dart';
 import 'package:project_buddy_mobile/services/goto.dart';
-import 'package:project_buddy_mobile/services/helper.dart';
 import 'package:project_buddy_mobile/widgets/p_button.dart';
 import 'package:project_buddy_mobile/widgets/p_input.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class NewPasswordPage extends StatefulWidget {
+  const NewPasswordPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _NewPasswordPageState createState() => _NewPasswordPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  Map<String, dynamic> _formData = {};
-
-  @override
-  void initState() {
-    _formData = Helper.fillForm(
-        formKey: 'loginForm', fields: {'email': '', 'password': ''});
-    super.initState();
-  }
+class _NewPasswordPageState extends State<NewPasswordPage> {
+  Map<String, dynamic> _formData = {
+    'password': '',
+    'password_confirmation': ''
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           SizedBox(height: 16.0),
                           Text(
-                            '${Helper.routeExtension.toUpperCase()} Login',
+                            'Set New Password',
                             style: TextStyle(
                                 fontSize: 18.0, fontWeight: FontWeight.bold),
                           ),
@@ -61,15 +56,6 @@ class _LoginPageState extends State<LoginPage> {
                         child: Column(
                           children: [
                             PInput(
-                              label: 'Email Address',
-                              prefixIconData: Icons.email_outlined,
-                              isEmail: true,
-                              value: _formData['email'],
-                              onChanged: (val) {
-                                _formData['email'] = val;
-                              },
-                            ),
-                            PInput(
                               label: 'Password',
                               prefixIconData: Icons.vpn_key_outlined,
                               isPassword: true,
@@ -78,39 +64,22 @@ class _LoginPageState extends State<LoginPage> {
                                 _formData['password'] = val;
                               },
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Goto.push('/forgot-password');
-                                  },
-                                  child: Text(
-                                    'Forgot password?',
-                                    style: TextStyle(
-                                        decoration: TextDecoration.underline),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 24.0),
-                            PButton(
-                              label: 'Login',
-                              full: true,
-                              onTap: () {},
+                            PInput(
+                              label: 'Password Confirmation',
+                              prefixIconData: Icons.vpn_key_outlined,
+                              isPassword: true,
+                              value: _formData['password_confirmation'],
+                              onChanged: (val) {
+                                _formData['password_confirmation'] = val;
+                              },
                             ),
                             SizedBox(height: 16.0),
-                            InkWell(
+                            PButton(
+                              label: 'Set Password',
+                              full: true,
                               onTap: () {
-                                Goto.transfer(
-                                    '/register/${Helper.routeExtension}');
+                                Goto.root('/');
                               },
-                              child: Text(
-                                'Register',
-                                style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    fontSize: 18.0),
-                              ),
                             ),
                           ],
                         ),

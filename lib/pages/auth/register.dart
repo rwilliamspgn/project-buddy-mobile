@@ -105,7 +105,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             PButton(
                               label: 'Register',
                               full: true,
-                              onTap: () {},
+                              onTap: () {
+                                Goto.push('/token-input');
+                              },
                             ),
                             SizedBox(height: 16.0),
                             InkWell(

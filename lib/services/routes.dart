@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:project_buddy_mobile/generated/assets.dart';
+import 'package:project_buddy_mobile/pages/auth/forgot_password.dart';
 import 'package:project_buddy_mobile/pages/auth/login.dart';
+import 'package:project_buddy_mobile/pages/auth/new_password.dart';
 import 'package:project_buddy_mobile/pages/auth/register.dart';
+import 'package:project_buddy_mobile/pages/auth/token_input.dart';
 import 'package:project_buddy_mobile/pages/landing.dart';
 
 import 'goto.dart';
@@ -51,6 +54,14 @@ class Routes {
         return _pageBuilder(RegisterPage(), settings, guarded: false);
       case '/register/buddy':
         return _pageBuilder(RegisterPage(), settings, guarded: false);
+
+      case '/forgot-password':
+        return _pageBuilder(ForgotPasswordPage(), settings, guarded: false);
+
+      case '/token-input':
+        return _pageBuilder(TokenInputPage(), settings, guarded: false);
+      case '/set-new-password':
+        return _pageBuilder(NewPasswordPage(), settings, guarded: false);
 
       default:
         return _error404(settings);
