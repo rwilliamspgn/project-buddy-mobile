@@ -19,7 +19,7 @@ class Helper {
   }
 
   static String get token {
-    return globalBox.get('token');
+    return globalBox.get('token', defaultValue: '');
   }
 
   static set user(Map user) {
@@ -47,7 +47,7 @@ class Helper {
   }
 
   static String get role {
-    Map user = globalBox.get('user', defaultValue: {'role': 'contractor'});
+    Map user = globalBox.get('user', defaultValue: {'role': ''});
     return user['role'];
   }
 

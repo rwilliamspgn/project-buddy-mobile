@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_buddy_mobile/env/config.dart';
+import 'package:project_buddy_mobile/services/goto.dart';
 
 class MySchedulesPage extends StatefulWidget {
   const MySchedulesPage({Key? key}) : super(key: key);
@@ -17,7 +18,9 @@ class _MySchedulesPageState extends State<MySchedulesPage> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Goto.push('/settings');
+            },
             icon: Icon(Icons.settings),
             color: Colors.white,
           ),

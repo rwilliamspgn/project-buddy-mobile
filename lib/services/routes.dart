@@ -9,6 +9,7 @@ import 'package:project_buddy_mobile/pages/auth/register.dart';
 import 'package:project_buddy_mobile/pages/auth/token_input.dart';
 import 'package:project_buddy_mobile/pages/landing.dart';
 import 'package:project_buddy_mobile/pages/main/contractor/my_schedules.dart';
+import 'package:project_buddy_mobile/pages/main/settings.dart';
 
 import 'goto.dart';
 import 'helper.dart';
@@ -67,6 +68,9 @@ class Routes {
       case '/my-schedules':
         return _pageBuilder(MySchedulesPage(), settings, guarded: true);
 
+      case '/settings':
+        return _pageBuilder(SettingPage(), settings, guarded: true);
+
       default:
         return _error404(settings);
     }
@@ -76,7 +80,7 @@ class Routes {
     String routeName = settings.name!;
     if (guarded != null) {
       if (guarded) {
-        if (Helper.token == null) {
+        if (Helper.token.length == 0) {
           routeName = '/';
           page = LandingPage();
         }

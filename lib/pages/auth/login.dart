@@ -98,6 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                               label: 'Login',
                               full: true,
                               onTap: () {
+                                Helper.token = 'sample-token';
                                 Goto.root('/my-schedules');
                               },
                             ),
