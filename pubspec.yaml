@@ -46,10 +46,22 @@ dependencies:
   google_fonts: any
   email_validator: any
   pinput: any
+  flutter_lorem: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  flutter_launcher_icons: any
+
+flutter_icons:
+  ios: true
+  android: true
+  remove_alpha_ios: true
+  image_path: 'assets/logo.png'
+
+# flutter pub run flutter_launcher_icons:main
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

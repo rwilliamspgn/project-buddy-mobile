@@ -29,8 +29,8 @@ class PButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(50.0),
           ),
         ),
-        padding:
-            MaterialStateProperty.resolveWith((states) => EdgeInsets.all(12.0)),
+        padding: MaterialStateProperty.resolveWith(
+            (states) => EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0)),
       ),
     );
 

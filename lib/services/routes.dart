@@ -10,6 +10,9 @@ import 'package:project_buddy_mobile/pages/auth/token_input.dart';
 import 'package:project_buddy_mobile/pages/landing.dart';
 import 'package:project_buddy_mobile/pages/main/contractor/my_schedules.dart';
 import 'package:project_buddy_mobile/pages/main/settings.dart';
+import 'package:project_buddy_mobile/pages/main/settings/change_password.dart';
+import 'package:project_buddy_mobile/pages/main/settings/profile.dart';
+import 'package:project_buddy_mobile/pages/main/settings/terms_and_conditions.dart';
 
 import 'goto.dart';
 import 'helper.dart';
@@ -70,6 +73,12 @@ class Routes {
 
       case '/settings':
         return _pageBuilder(SettingPage(), settings, guarded: true);
+      case '/profile':
+        return _pageBuilder(ProfilePage(), settings, guarded: true);
+      case '/change-password':
+        return _pageBuilder(ChangePasswordPage(), settings, guarded: true);
+      case '/terms-and-conditions':
+        return _pageBuilder(TermsAndConditionsPage(), settings, guarded: true);
 
       default:
         return _error404(settings);

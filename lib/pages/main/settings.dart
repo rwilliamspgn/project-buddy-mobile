@@ -29,15 +29,21 @@ class _SettingPageState extends State<SettingPage> {
             SizedBox(height: 16.0),
             _Button(
               title: 'Profile',
-              onTap: () {},
+              onTap: () {
+                Goto.push('/profile');
+              },
             ),
             _Button(
               title: 'Change Password',
-              onTap: () {},
+              onTap: () {
+                Goto.push('/change-password');
+              },
             ),
             _Button(
               title: 'Terms and Conditions',
-              onTap: () {},
+              onTap: () {
+                Goto.push('/terms-and-conditions');
+              },
             ),
             _Button(
               title: 'Logout',
