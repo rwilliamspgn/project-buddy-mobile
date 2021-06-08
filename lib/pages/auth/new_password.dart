@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_buddy_mobile/generated/assets.dart';
+import 'package:project_buddy_mobile/models/auth_model.dart';
 import 'package:project_buddy_mobile/services/goto.dart';
+import 'package:project_buddy_mobile/services/helper.dart';
 import 'package:project_buddy_mobile/widgets/p_button.dart';
 import 'package:project_buddy_mobile/widgets/p_input.dart';
 
@@ -13,6 +15,7 @@ class NewPasswordPage extends StatefulWidget {
 
 class _NewPasswordPageState extends State<NewPasswordPage> {
   Map<String, dynamic> _formData = {
+    'token': Helper.globalBox.get('pin', defaultValue: ''),
     'password': '',
     'password_confirmation': ''
   };
@@ -77,8 +80,12 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                             PButton(
                               label: 'Set Password',
                               full: true,
-                              onTap: () {
-                                Goto.root('/');
+                              onTap: () async {
+                                bool res =
+                                    await AuthModel.setNewPassword(_formData);
+                                if (res) {
+                                  Goto.root('/');
+                                }
                               },
                             ),
                           ],

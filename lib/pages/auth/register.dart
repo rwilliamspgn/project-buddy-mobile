@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_buddy_mobile/generated/assets.dart';
+import 'package:project_buddy_mobile/models/auth_model.dart';
 import 'package:project_buddy_mobile/services/goto.dart';
 import 'package:project_buddy_mobile/services/helper.dart';
 import 'package:project_buddy_mobile/widgets/p_button.dart';
@@ -18,6 +19,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     _formData = Helper.fillForm(formKey: 'loginForm', fields: {
+      'role': Helper.routeExtension,
       'name': '',
       'email': '',
       'password': '',
@@ -105,8 +107,13 @@ class _RegisterPageState extends State<RegisterPage> {
                             PButton(
                               label: 'Register',
                               full: true,
-                              onTap: () {
-                                Goto.push('/token-input');
+                              onTap: () async {
+                                bool res = await AuthModel.register(_formData);
+                                if (res) {
+                                  Helper.globalBox
+                                      .put('fromAction', 'registration');
+                                  Goto.push('/token-input');
+                                }
                               },
                             ),
                             SizedBox(height: 16.0),

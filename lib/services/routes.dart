@@ -8,7 +8,9 @@ import 'package:project_buddy_mobile/pages/auth/new_password.dart';
 import 'package:project_buddy_mobile/pages/auth/register.dart';
 import 'package:project_buddy_mobile/pages/auth/token_input.dart';
 import 'package:project_buddy_mobile/pages/landing.dart';
-import 'package:project_buddy_mobile/pages/main/contractor/my_schedules.dart';
+import 'package:project_buddy_mobile/pages/main/buddy/buddy_home.dart';
+import 'package:project_buddy_mobile/pages/main/client/client_home.dart';
+import 'package:project_buddy_mobile/pages/main/contractor/contractor_home.dart';
 import 'package:project_buddy_mobile/pages/main/settings.dart';
 import 'package:project_buddy_mobile/pages/main/settings/change_password.dart';
 import 'package:project_buddy_mobile/pages/main/settings/profile.dart';
@@ -68,8 +70,12 @@ class Routes {
       case '/set-new-password':
         return _pageBuilder(NewPasswordPage(), settings, guarded: false);
 
-      case '/my-schedules':
-        return _pageBuilder(MySchedulesPage(), settings, guarded: true);
+      case '/contractor-home':
+        return _pageBuilder(ContractorHomePage(), settings, guarded: true);
+      case '/client-home':
+        return _pageBuilder(ClientHomePage(), settings, guarded: true);
+      case '/buddy-home':
+        return _pageBuilder(BuddyHomePage(), settings, guarded: true);
 
       case '/settings':
         return _pageBuilder(SettingPage(), settings, guarded: true);
@@ -89,22 +95,20 @@ class Routes {
     String routeName = settings.name!;
     if (guarded != null) {
       if (guarded) {
-        if (Helper.token.length == 0) {
+        if (Helper.token == null) {
           routeName = '/';
           page = LandingPage();
         }
       } else {
         if (Helper.role == 'client') {
-          // TODO: update
-          routeName = '/my-schedule';
-          page = MySchedulesPage();
+          routeName = '/contractor-home';
+          page = ClientHomePage();
         } else if (Helper.role == 'contractor') {
-          routeName = '/my-schedule';
-          page = MySchedulesPage();
+          routeName = '/contractor-home';
+          page = ContractorHomePage();
         } else if (Helper.role == 'buddy') {
-          // TODO: update
-          routeName = '/my-schedule';
-          page = MySchedulesPage();
+          routeName = '/buddy-home';
+          page = BuddyHomePage();
         }
       }
     }

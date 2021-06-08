@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_buddy_mobile/generated/assets.dart';
+import 'package:project_buddy_mobile/models/auth_model.dart';
 import 'package:project_buddy_mobile/services/goto.dart';
 import 'package:project_buddy_mobile/services/helper.dart';
 import 'package:project_buddy_mobile/widgets/p_button.dart';
@@ -17,8 +18,11 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    _formData = Helper.fillForm(
-        formKey: 'loginForm', fields: {'email': '', 'password': ''});
+    _formData = Helper.fillForm(formKey: 'loginForm', fields: {
+      'role': Helper.routeExtension,
+      'email': '',
+      'password': '',
+    });
     super.initState();
   }
 
@@ -97,9 +101,11 @@ class _LoginPageState extends State<LoginPage> {
                             PButton(
                               label: 'Login',
                               full: true,
-                              onTap: () {
-                                Helper.token = 'sample-token';
-                                Goto.root('/my-schedules');
+                              onTap: () async {
+                                bool res = await AuthModel.login(_formData);
+                                if (res) {
+                                  Goto.root('/${Helper.role}-home');
+                                }
                               },
                             ),
                             SizedBox(height: 16.0),

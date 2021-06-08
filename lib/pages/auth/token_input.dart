@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:project_buddy_mobile/env/config.dart';
 import 'package:project_buddy_mobile/generated/assets.dart';
+import 'package:project_buddy_mobile/models/auth_model.dart';
 import 'package:project_buddy_mobile/services/goto.dart';
+import 'package:project_buddy_mobile/services/helper.dart';
 import 'package:project_buddy_mobile/widgets/p_button.dart';
 
 class TokenInputPage extends StatefulWidget {
@@ -86,10 +88,24 @@ class _TokenInputPageState extends State<TokenInputPage> {
                               full: true,
                               onTap: _pin.length < 6
                                   ? null
-                                  : () {
-                                      // TODO: parameter for registration or
-                                      //  change password
-                                      Goto.transfer('/set-new-password');
+                                  : () async {
+                                      if (Helper.globalBox.get('fromAction',
+                                              defaultValue: 'registration') ==
+                                          'registration') {
+                                        bool res = await AuthModel.verifyEmail(
+                                            {'token': _pin});
+                                        if (res) {
+                                          Goto.transfer(
+                                              '/login/${Helper.routeExtension}');
+                                        }
+                                      } else {
+                                        bool res = await AuthModel.checkToken(
+                                            {'token': _pin});
+                                        if (res) {
+                                          Helper.globalBox.put('pin', _pin);
+                                          Goto.transfer('/set-new-password');
+                                        }
+                                      }
                                     },
                             ),
                           ],

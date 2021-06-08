@@ -14,19 +14,19 @@ class Helper {
   static Box formBox = Hive.box('Form');
   static Box tableBox = Hive.box('Table');
 
-  static set token(String token) {
+  static set token(String? token) {
     globalBox.put('token', token);
   }
 
-  static String get token {
-    return globalBox.get('token', defaultValue: '');
+  static String? get token {
+    return globalBox.get('token');
   }
 
-  static set user(Map user) {
+  static set user(Map? user) {
     globalBox.put('user', user);
   }
 
-  static Map get user {
+  static Map? get user {
     return globalBox.get('user');
   }
 
@@ -152,15 +152,15 @@ class Helper {
     return imageFileBase64;
   }
 
-  static String getAvatarURL({bool thumbnail: true}) {
-    String url;
+  static String? getAvatarURL({bool thumbnail: true}) {
+    String? url;
     if (thumbnail) {
-      url = user['avatar_thumbnail'];
+      url = user!['avatar_thumbnail'];
     } else {
-      url = user['avatar_original'];
+      url = user!['avatar_original'];
     }
     if (url != null) {
-      url += '?timestamp=' + user['updated_at'].toString();
+      url += '?timestamp=' + user!['updated_at'].toString();
     }
     return url;
   }

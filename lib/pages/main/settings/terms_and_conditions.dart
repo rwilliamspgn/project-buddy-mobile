@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lorem/flutter_lorem.dart';
+import 'package:project_buddy_mobile/env/data.dart';
 
 class TermsAndConditionsPage extends StatefulWidget {
   const TermsAndConditionsPage({Key? key}) : super(key: key);
@@ -19,7 +19,8 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: Text(
-          lorem(paragraphs: 7, words: 1000),
+          // lorem(paragraphs: 7, words: 1000),
+          Data.termsAndConditions,
           textAlign: TextAlign.justify,
         ),
       ),

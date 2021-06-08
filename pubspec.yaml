@@ -31,7 +31,6 @@ dependencies:
 
   connectivity: any
   dio: any
-  flutter_easyloading: any
   bot_toast: any
   universal_html: any
   flutter_styled_toast: ^2.0.0
@@ -47,6 +46,7 @@ dependencies:
   email_validator: any
   pinput: any
   flutter_lorem: any
+  flutter_easyloading: any
 
 dev_dependencies:
   flutter_test:

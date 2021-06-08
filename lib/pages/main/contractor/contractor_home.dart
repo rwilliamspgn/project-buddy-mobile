@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:project_buddy_mobile/env/config.dart';
 import 'package:project_buddy_mobile/services/goto.dart';
 
-class MySchedulesPage extends StatefulWidget {
-  const MySchedulesPage({Key? key}) : super(key: key);
+class ContractorHomePage extends StatefulWidget {
+  const ContractorHomePage({Key? key}) : super(key: key);
 
   @override
-  _MySchedulesPageState createState() => _MySchedulesPageState();
+  _ContractorHomePageState createState() => _ContractorHomePageState();
 }
 
-class _MySchedulesPageState extends State<MySchedulesPage> {
+class _ContractorHomePageState extends State<ContractorHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

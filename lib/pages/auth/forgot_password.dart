@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_buddy_mobile/generated/assets.dart';
+import 'package:project_buddy_mobile/models/auth_model.dart';
 import 'package:project_buddy_mobile/services/goto.dart';
+import 'package:project_buddy_mobile/services/helper.dart';
 import 'package:project_buddy_mobile/widgets/p_button.dart';
 import 'package:project_buddy_mobile/widgets/p_input.dart';
 
@@ -67,7 +69,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             PButton(
                               label: 'Confirm',
                               full: true,
-                              onTap: () {},
+                              onTap: () async {
+                                bool res = await AuthModel.forgotPassword(
+                                    {'email': _email});
+                                if (res) {
+                                  Helper.globalBox
+                                      .put('fromAction', 'forgot-password');
+                                  Goto.push('/token-input');
+                                }
+                              },
                             ),
                           ],
                         ),

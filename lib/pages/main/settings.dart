@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_buddy_mobile/generated/assets.dart';
+import 'package:project_buddy_mobile/models/auth_model.dart';
 import 'package:project_buddy_mobile/services/goto.dart';
-import 'package:project_buddy_mobile/services/helper.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -47,9 +47,11 @@ class _SettingPageState extends State<SettingPage> {
             ),
             _Button(
               title: 'Logout',
-              onTap: () {
-                Helper.token = '';
-                Goto.root('/');
+              onTap: () async {
+                bool res = await AuthModel.logout();
+                if (res) {
+                  Goto.root('/');
+                }
               },
             ),
           ],
